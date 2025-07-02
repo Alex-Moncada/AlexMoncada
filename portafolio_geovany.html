@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Interactivo - Geovany Moncada Gutiérrez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Slate/Gray neutrals with a Teal accent) -->
+    <!-- Application Structure Plan: La aplicación está estructurada como un portafolio de una sola página con navegación fija. Inicia con una sección de héroe que resume el perfil. Sigue una línea de tiempo interactiva para la experiencia profesional, que desglosa más de 20 años de carrera en hitos manejables. Luego, una sección de habilidades clave utiliza tarjetas para una visualización clara y un gráfico de radar para un resumen cuantitativo. Finalmente, secciones limpias para educación y contacto. Esta estructura fue elegida para transformar un CV denso en una narrativa atractiva, destacando la progresión y las competencias clave de forma intuitiva. -->
+    <!-- Visualization & Content Choices: 1. Trayectoria (Texto del CV) -> Línea de Tiempo Vertical (HTML/CSS/JS) con detalles expandibles al hacer clic para organizar cronológicamente una larga carrera. 2. Lista de "Experiencia en" -> Cuadrícula de Tarjetas de Habilidades (HTML/Tailwind) y Gráfico de Radar (Chart.js/Canvas) para categorizar y visualizar competencias de forma rápida e impactante. 3. Educación -> Tarjetas limpias y separadas para una presentación clara de las credenciales. Esta selección de visualizaciones prioriza la interacción y la claridad, haciendo la información más digerible. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #cbd5e1;
+            left: 1.25rem;
+            top: 2rem;
+            bottom: -2rem;
+            transform: translateX(-50%);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 1.25rem;
+            top: 0.5rem;
+            height: 1rem;
+            width: 1rem;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 9999px;
+            border-width: 2px;
+        }
+        .section-active { color: #0d9488; font-weight: 700; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+    <nav id="navbar" class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-xl font-bold text-teal-600">GMG</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#hero" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-teal-50">Inicio</a>
+                        <a href="#experience" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-teal-50">Trayectoria</a>
+                        <a href="#skills" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-teal-50">Habilidades</a>
+                        <a href="#education" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-teal-50">Educación</a>
+                        <a href="#contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-teal-50">Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight">Alex Geovany Moncada Gutiérrez</h1>
+                <p class="mt-4 text-xl md:text-2xl text-teal-600 font-medium">Ingeniero Industrial y Consultor de Operaciones</p>
+                <p class="mt-8 max-w-3xl mx-auto text-lg text-slate-600">
+                    Profesional orientado a resultados con una vasta experiencia en el análisis de oportunidades, planeación estratégica, mejora continua y gestión de equipos para optimizar productos, servicios y maximizar los beneficios de la organización.
+                </p>
+                <div class="mt-10 flex justify-center gap-4">
+                    <a href="#contact" class="bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors">Contactar</a>
+                    <a href="#experience" class="bg-slate-200 text-slate-800 font-semibold px-6 py-3 rounded-lg hover:bg-slate-300 transition-colors">Ver Trayectoria</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20 md:py-24">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-900">Trayectoria Profesional</h2>
+                <p class="mt-4 text-center text-lg text-slate-600 max-w-2xl mx-auto">Más de 20 años de experiencia, desde la gestión corporativa en la industria textil hasta el emprendimiento y la consultoría estratégica.</p>
+                <div class="mt-16 space-y-12">
+                    <div class="relative timeline-item pl-10">
+                        <div class="timeline-dot border-teal-600"></div>
+                        <p class="text-sm font-semibold text-teal-600">2024 - Actualidad</p>
+                        <h3 class="text-xl font-bold text-slate-800">Consultoría y Gestión Empresarial</h3>
+                        <div class="mt-2 text-slate-600 space-y-2">
+                             <p><strong>Consultor en Ingenieros Consultores Asociados:</strong> Liderando proyectos de mejora en gestión de almacenes, optimización de procesos y reducción de costos.</p>
+                             <p><strong>Gerente y Socio en "La Casa de la Tilapia y Mariscos":</strong> Supervisando la operación completa del negocio, desde la cadena de suministro hasta el servicio al cliente y la gestión financiera.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative timeline-item pl-10">
+                        <div class="timeline-dot border-slate-400"></div>
+                        <p class="text-sm font-semibold text-slate-500">2018 - 2023</p>
+                        <h3 class="text-xl font-bold text-slate-800">Emprendimiento y Liderazgo en Acuicultura</h3>
+                        <div class="mt-2 text-slate-600 space-y-2">
+                            <p><strong>Gerente Propietario de Proyecto de Producción de Tilapia:</strong> Desarrollo del proyecto desde la fase de evaluación y formulación hasta la construcción, operación y gestión completa de la producción.</p>
+                             <p><strong>Socio Directivo en APPIH y Asociación de Acuicultores del Achiotal:</strong> Participación activa en la dirección y estrategia de asociaciones clave del sector, fomentando el desarrollo y la colaboración entre productores.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative timeline-item pl-10">
+                        <div class="timeline-dot border-slate-400"></div>
+                        <p class="text-sm font-semibold text-slate-500">2003 - 2017</p>
+                        <h3 class="text-xl font-bold text-slate-800">Carrera Gerencial en Textiles Caracol Knits</h3>
+                        <p class="mt-2 text-slate-600">Una trayectoria de 14 años con crecimiento sostenido, ocupando roles de creciente responsabilidad:</p>
+                        <ul class="mt-2 list-disc list-inside text-slate-600 space-y-1">
+                            <li><strong>Gerente de Seguridad Física Integral y Operaciones (2014-2017):</strong> Responsable de la seguridad integral y operaciones para múltiples plantas y proyectos de energía.</li>
+                            <li><strong>Gerente de Ingeniería de Procesos (2010-2014):</strong> Liderazgo en la optimización de procesos de hilaza, tejido y tela cruda, implementando Lean Manufacturing y TPM.</li>
+                            <li><strong>Gerente Corporativo de Bodega y Bacheo (2007-2010):</strong> Administración y control de inventarios de tela cruda para dos corporaciones.</li>
+                            <li><strong>Roles Anteriores:</strong> Jefe de Bodega, Coordinador de Suspended y Jefe de Turno de Producción, demostrando un profundo conocimiento operativo desde la base.</li>
+                        </ul>
+                    </div>
+
+                    <div class="relative timeline-item pl-10">
+                        <div class="timeline-dot border-slate-400"></div>
+                        <p class="text-sm font-semibold text-slate-500">1999 - 2002</p>
+                        <h3 class="text-xl font-bold text-slate-800">Inicios en Métodos y Procedimientos</h3>
+                         <div class="mt-2 text-slate-600 space-y-2">
+                             <p><strong>Régimen de Aportaciones Privadas (RAP):</strong> Ocupó las posiciones de Jefe del Departamento de Registro y Recaudaciones y Oficial de Métodos y Procedimientos, desarrollando una base sólida en sistemas y procesos organizacionales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-900">Habilidades Clave</h2>
+                <p class="mt-4 text-center text-lg text-slate-600 max-w-2xl mx-auto">Un conjunto de competencias diversificadas para impulsar la excelencia operativa y estratégica.</p>
+                <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-2 gap-8 items-center">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-slate-800">Gestión de Operaciones</h4>
+                            <p class="mt-2 text-sm text-slate-600">Administración de personal, presupuestos, MBO, TPM, Lean Manufacturing (5'S, Kanban) y planificación de producción.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-slate-800">Ingeniería y Mejora Continua</h4>
+                            <p class="mt-2 text-sm text-slate-600">Reducción de costos, gestión de calidad total, elaboración y auditoría de SOPs, y ejecución de proyectos de inversión.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-slate-800">Seguridad Integral</h4>
+                            <p class="mt-2 text-sm text-slate-600">Mapeo de seguridad física, industrial y contra incendios. Implementación de C-TPAT, monitoreo por GPS/Cámaras y coordinación de patrullaje.</p>
+                        </div>
+                         <div class="bg-slate-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-slate-800">Gestión de Proyectos</h4>
+                            <p class="mt-2 text-sm text-slate-600">Evaluación, formulación e inversión en proyectos de emprendimiento. Creación y seguimiento de comités estratégicos.</p>
+                        </div>
+                    </div>
+                    <div class="chart-container relative h-80 md:h-[400px] w-full max-w-lg mx-auto">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-20 md:py-24">
+            <div class="max-w-5xl mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-900">Educación y Certificaciones</h2>
+                <p class="mt-4 text-center text-lg text-slate-600 max-w-2xl mx-auto">Una base académica sólida y formación continua en áreas de alta especialización.</p>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h4 class="font-bold text-lg text-teal-700">Ingeniero Industrial</h4>
+                        <p class="text-slate-800">Universidad Nacional Autónoma de Honduras, UNAH</p>
+                        <p class="text-sm text-slate-500">1994 – 1998</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h4 class="font-bold text-lg text-teal-700">Especialización en Gerencia</h4>
+                        <p class="text-slate-800">Cursos de Maestría en Project Management</p>
+                        <p class="text-sm text-slate-500">ADEN BUSINESS SCHOOL, 2010 – 2012</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h4 class="font-bold text-lg text-teal-700">Director de Seguridad Integral</h4>
+                        <p class="text-slate-800">Diplomado en Instalaciones y Operaciones</p>
+                        <p class="text-sm text-slate-500">INCASI-Ecuador, 2015</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h4 class="font-bold text-lg text-teal-700">Process Engineer Black Belt</h4>
+                        <p class="text-slate-800">Certificación en Mejora de Procesos</p>
+                        <p class="text-sm text-slate-500">Fruit of the Loom, 2013</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h4 class="font-bold text-lg text-teal-700">Diplomado Textil</h4>
+                        <p class="text-slate-800">Conocimiento especializado de la industria</p>
+                        <p class="text-sm text-slate-500">Universidad Pontifica de Cali, 2012</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h4 class="font-bold text-lg text-teal-700">Certificación C-TPAT</h4>
+                        <p class="text-slate-800">Norma de Seguridad Aduanera de USA</p>
+                        <p class="text-sm text-slate-500">WRAP, 2016</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 md:py-24 bg-teal-700 text-white">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+                 <h2 class="text-3xl font-bold">Contactar</h2>
+                 <p class="mt-4 text-lg text-teal-100">Estoy disponible para discutir nuevas oportunidades y proyectos. No dude en ponerse en contacto.</p>
+                 <div class="mt-8 space-y-4 text-lg">
+                    <p><strong>Ubicación:</strong> San Pedro Sula, Honduras</p>
+                    <p><strong>Email:</strong> <a href="mailto:amoncada06@gmail.com" class="underline hover:text-teal-200">amoncada06@gmail.com</a></p>
+                    <p><strong>Teléfono:</strong> <a href="tel:+50497289057" class="underline hover:text-teal-200">+504 9728-9057</a></p>
+                 </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-slate-800 text-white py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Alex Geovany Moncada Gutiérrez. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Gestión de Operaciones', 
+                        'Ingeniería de Procesos', 
+                        'Seguridad Integral', 
+                        'Gestión de Proyectos', 
+                        'Liderazgo de Equipos', 
+                        'Planificación Estratégica'
+                    ],
+                    datasets: [{
+                        label: 'Nivel de Competencia',
+                        data: [95, 90, 88, 92, 93, 85],
+                        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                        borderColor: 'rgba(13, 148, 136, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(13, 148, 136, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(13, 148, 136, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: { 
+                                font: { size: 12 },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                color: '#64748b',
+                                stepSize: 20
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                           display: false
+                        }
+                    }
+                }
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('section-active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('section-active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
